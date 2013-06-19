@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>True by ericam</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>True</h1>
+        <h2>Testing tools for compass/sass</h2>
+        <a href="https://github.com/ericam/true" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="true" class="anchor" href="#true"><span class="octicon octicon-link"></span></a>True</h1>
+
+<p><em>Verb</em></p>
+
+<ol>
+<li>To make true; shape, adjust, place, etc., exactly or accurately:
+<em>True the wheels of a bicycle after striking a pothole.</em>
+</li>
+<li>To make even, symmetrical, level, etc. (often followed by <em>up</em>):
+<em>True up the sides of a door.</em>
+</li>
+<li>To test your Sass/Compass code; debug, perfect, etc. (often using <em>True</em>):
+<em>True your sweet plugin before you deploy.</em>
+</li>
+</ol><p>At this point
+True can only test values,
+not property/value output.
+I'd like that to change in the future,
+but it will require ruby code to achieve.
+In the meantime,
+use True for logical unit tests,
+and use version-control for integration testing
+by comparing changes in output files.</p>
+
+<h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<p>in command line:</p>
+
+<p><code>gem install true</code></p>
+
+<p>in config.rb:</p>
+
+<p><code>require 'true'</code></p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Production example from
+<a href="https://github.com/ericam/susy/blob/susy-next/test/scss/math/_columns.scss">Susy Next</a>:</p>
+
+<div class="highlight"><pre><span class="k">@import</span> <span class="s2">"true"</span><span class="p">;</span>
+
+<span class="c1">// Column Math Tests</span>
+<span class="c1">// =================</span>
+
+<span class="k">@include</span><span class="nd"> test-module</span><span class="p">(</span><span class="s1">'</span><span class="s2">Column Math'</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// Is Symmetrical</span>
+  <span class="c1">// --------------</span>
+
+  <span class="k">@include</span><span class="nd"> test</span><span class="p">(</span><span class="s1">'</span><span class="s2">[function] is-symmetrical()'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$sym</span><span class="o">:</span> <span class="mi">12</span><span class="p">;</span>
+    <span class="nv">$asym</span><span class="o">:</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="nv">$baz</span><span class="o">:</span> <span class="nf">compact</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+
+    <span class="c1">// 12 is a symmetrical grid.</span>
+    <span class="nv">$s</span><span class="o">:</span> <span class="nf">is-symmetrical</span><span class="p">(</span><span class="nv">$sym</span><span class="p">);</span>
+    <span class="k">@include</span><span class="nd"> assert-true</span><span class="p">(</span><span class="nv">$s</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Simple number should be symmetrical grid.'</span><span class="p">);</span>
+
+    <span class="c1">// (1 2 4 1 2 1) is not a symmetrical grid.</span>
+    <span class="nv">$a</span><span class="o">:</span> <span class="nf">is-symmetrical</span><span class="p">(</span><span class="nv">$asym</span><span class="p">);</span>
+    <span class="k">@include</span><span class="nd"> assert-false</span><span class="p">(</span><span class="nv">$a</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">List should be asymmetrical grid.'</span><span class="p">);</span>
+
+    <span class="c1">// compact(4) is not a symmetrical grid (because it is a list).</span>
+    <span class="nv">$b</span><span class="o">:</span> <span class="nf">is-symmetrical</span><span class="p">(</span><span class="nv">$baz</span><span class="p">);</span>
+    <span class="k">@include</span><span class="nd"> assert-false</span><span class="p">(</span><span class="nv">$b</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Single-item list should be asymmetrical grid.'</span><span class="p">);</span>
+  <span class="p">}</span>
+
+
+  <span class="c1">// Column Count</span>
+  <span class="c1">// ------------</span>
+
+  <span class="k">@include</span><span class="nd"> test</span><span class="p">(</span><span class="s1">'</span><span class="s2">[function] column-count()'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$sym</span><span class="o">:</span> <span class="mi">12</span><span class="p">;</span>
+    <span class="nv">$asym</span><span class="o">:</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="c1">// A symmetrical grid is equal to its column count.</span>
+    <span class="nv">$s-count</span><span class="o">:</span> <span class="nf">column-count</span><span class="p">(</span><span class="nv">$sym</span><span class="p">);</span>
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$s-count</span><span class="o">,</span> <span class="nv">$sym</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Symmetrical grid-count should equal $columns setting.'</span><span class="p">);</span>
+
+    <span class="c1">// An asymmetrical grid has a column-count equal to its length.</span>
+    <span class="nv">$a-count</span><span class="o">:</span> <span class="nf">column-count</span><span class="p">(</span><span class="nv">$asym</span><span class="p">);</span>
+    <span class="nv">$a-length</span><span class="o">:</span> <span class="nf">length</span><span class="p">(</span><span class="nv">$asym</span><span class="p">);</span>
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$a-count</span><span class="o">,</span> <span class="nv">$a-length</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Asymmetrical grid-count should equal $columns length.'</span><span class="p">);</span>
+  <span class="p">}</span>
+
+
+  <span class="c1">// Column Sum</span>
+  <span class="c1">// ----------</span>
+
+  <span class="k">@include</span><span class="nd"> test</span><span class="p">(</span><span class="s1">'</span><span class="s2">[function] symmetrical column-sum()'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$cols</span><span class="o">   :</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="nv">$guts</span><span class="o">   :</span> <span class="mf">.5</span><span class="p">;</span>
+    <span class="nv">$sum</span><span class="o">    :</span> <span class="nf">column-sum</span><span class="p">(</span><span class="nv">$cols</span><span class="o">,</span> <span class="nv">$guts</span><span class="p">);</span>
+    <span class="nv">$outer</span><span class="o">  :</span> <span class="nf">column-sum</span><span class="p">(</span><span class="nv">$cols</span><span class="o">,</span> <span class="nv">$guts</span><span class="o">,</span> <span class="n">outer</span><span class="p">);</span>
+
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$sum</span><span class="o">,</span> <span class="mi">13</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Column-sum for "9 .5" should be "13".'</span><span class="p">);</span>
+
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$outer</span><span class="o">,</span> <span class="mi">13</span><span class="mf">.5</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Outer column-sum for "9 .5" should be "13.5".'</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">@include</span><span class="nd"> test</span><span class="p">(</span><span class="s1">'</span><span class="s2">[function] asymmetrical column-sum()'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$sum</span><span class="o">    :</span> <span class="nf">column-sum</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">2</span><span class="o">,</span> <span class="mf">.25</span><span class="p">);</span>
+    <span class="nv">$outer</span><span class="o">  :</span> <span class="nf">column-sum</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">2</span><span class="o">,</span> <span class="mf">.25</span><span class="o">,</span> <span class="n">outer</span><span class="p">);</span>
+
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$sum</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Column-sum for "(1 2 3 1 2) .25" should be "10".'</span><span class="p">);</span>
+
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$outer</span><span class="o">,</span> <span class="mi">10</span><span class="mf">.25</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Outer column-sum for "(1 2 3 1 2) .25" should be "10.25".'</span><span class="p">);</span>
+  <span class="p">}</span>
+
+
+  <span class="c1">// Get Columns</span>
+  <span class="c1">// -----------</span>
+
+  <span class="k">@include</span><span class="nd"> test</span><span class="p">(</span><span class="s1">'</span><span class="s2">[function] symmetrical get-columns()'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$span</span><span class="o">:</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="nv">$context</span><span class="o">:</span> <span class="mi">12</span><span class="p">;</span>
+    <span class="nv">$sub</span><span class="o">:</span> <span class="nf">get-columns</span><span class="p">(</span><span class="nv">$span</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="nv">$context</span><span class="p">);</span>
+
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$sub</span><span class="o">,</span> <span class="nv">$span</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Symmetrical get-columns subset should be equal to its span.'</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">@include</span><span class="nd"> test</span><span class="p">(</span><span class="s1">'</span><span class="s2">[function] asymmetrical get-columns()'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$span</span><span class="o">:</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="nv">$context</span><span class="o">:</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="nv">$sub</span><span class="o">:</span> <span class="nf">get-columns</span><span class="p">(</span><span class="nv">$span</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="nv">$context</span><span class="p">);</span>
+
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$sub</span><span class="o">,</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">1</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Get-columns subset for "3 of (1 2 3 1 2) at 2" should be "2 3 1".'</span><span class="p">);</span>
+  <span class="p">}</span>
+
+
+  <span class="c1">// Get Column Span Sum</span>
+  <span class="c1">// -------------------</span>
+
+  <span class="k">@include</span><span class="nd"> test</span><span class="p">(</span><span class="s1">'</span><span class="s2">[function] symmetrical get-column-span-sum()'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$cols</span><span class="o">:</span> <span class="mi">12</span><span class="p">;</span>
+    <span class="nv">$guts</span><span class="o">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">;</span>
+
+    <span class="nv">$sum</span><span class="o">:</span> <span class="nf">get-column-span-sum</span><span class="p">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="nv">$cols</span><span class="o">,</span> <span class="nv">$guts</span><span class="p">);</span>
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$sum</span><span class="o">,</span> <span class="mi">3</span><span class="mf">.25</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Inner span-sum for "3 of 12 1/8 at 2" should be "3.25"'</span><span class="p">);</span>
+
+    <span class="nv">$sum</span><span class="o">:</span> <span class="nf">get-column-span-sum</span><span class="p">(</span><span class="mi">3</span><span class="o">,</span> <span class="n">last</span><span class="o">,</span> <span class="nv">$cols</span><span class="o">,</span> <span class="nv">$guts</span><span class="o">,</span> <span class="n">outer</span><span class="p">);</span>
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$sum</span><span class="o">,</span> <span class="mi">3</span><span class="mf">.375</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Outer span-sum for "last 3 of 12 1/8" should be "3.375".'</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">@include</span><span class="nd"> test</span><span class="p">(</span><span class="s1">'</span><span class="s2">[function] asymmetrical get-column-span-sum()'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$cols</span><span class="o">:</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="nv">$guts</span><span class="o">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">;</span>
+
+    <span class="nv">$sum</span><span class="o">:</span> <span class="nf">get-column-span-sum</span><span class="p">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="nv">$cols</span><span class="o">,</span> <span class="nv">$guts</span><span class="p">);</span>
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$sum</span><span class="o">,</span> <span class="mi">7</span><span class="mf">.5</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Inner span-sum for "3 at 2 of (1 2 3 2 1 2 3)" should be "7.5".'</span><span class="p">);</span>
+
+    <span class="nv">$sum</span><span class="o">:</span> <span class="nf">get-column-span-sum</span><span class="p">(</span><span class="mi">3</span><span class="o">,</span> <span class="n">last</span><span class="o">,</span> <span class="nv">$cols</span><span class="o">,</span> <span class="nv">$guts</span><span class="o">,</span> <span class="n">outer</span><span class="p">);</span>
+    <span class="k">@include</span><span class="nd"> assert-equal</span><span class="p">(</span><span class="nv">$sum</span><span class="o">,</span> <span class="mi">6</span><span class="mf">.75</span><span class="o">,</span>
+      <span class="s1">'</span><span class="s2">Outer span-sum for "last 3 of (1 2 3 2 1 2 3)" should be "6.75".'</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+
+<p><strong>True</strong> will report detailed results in the terminal,
+and a summary of results in the output css.</p>
+
+<p>Here's the Susy "Column Math" CSS output:</p>
+
+<div class="highlight"><pre><span class="c">/*</span>
+
+<span class="c">### Column Math ------ */</span>
+<span class="c">/*  - [function] is-symmetrical() (3 assertions, 3 passed, 0 failed) */</span>
+<span class="c">/*  - [function] column-count() (2 assertions, 2 passed, 0 failed) */</span>
+<span class="c">/*  - [function] symmetrical column-sum() (2 assertions, 2 passed, 0 failed) */</span>
+<span class="c">/*  - [function] asymmetrical column-sum() (2 assertions, 2 passed, 0 failed) */</span>
+<span class="c">/*  - [function] symmetrical get-columns() (1 assertions, 1 passed, 0 failed) */</span>
+<span class="c">/*  - [function] asymmetrical get-columns() (1 assertions, 1 passed, 0 failed) */</span>
+<span class="c">/*  - [function] symmetrical get-column-span-sum() (2 assertions, 2 passed, 0 failed) */</span>
+<span class="c">/*  - [function] asymmetrical get-column-span-sum() (2 assertions, 2 passed, 0 failed) */</span>
+<span class="c">/*</span>
+<span class="c">    Summary:</span>
+<span class="c">    - 8 Tests</span>
+<span class="c">    - 8 Passed</span>
+<span class="c">    - 0 Failed */</span>
+</pre></div>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/ericam/true/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/ericam/true/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/ericam/true"></a> is maintained by <a href="https://github.com/ericam">ericam</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
