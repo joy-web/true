@@ -1,39 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>True by ericam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <title>True by ericam</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">True</h1>
-        <p class="header">Testing tools for compass/sass</p>
+    <header>
+      <div class="inner">
+        <h1>True</h1>
+        <h2>Unit Tests for Sass</h2>
+        <a href="https://github.com/ericam/true" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/ericam/true/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/ericam/true/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/ericam/true">View On GitHub</a></li>
-        </ul>
-
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/ericam">ericam</a></p>
-
-
-      </header>
-      <section>
-        <p><a href="https://travis-ci.org/ericam/true"><img src="https://travis-ci.org/ericam/true.png?branch=master" alt="Build Status"></a></p>
-
-<h1>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
 <a name="true" class="anchor" href="#true"><span class="octicon octicon-link"></span></a>True</h1>
+
+<p><a href="https://travis-ci.org/ericam/true"><img src="https://travis-ci.org/ericam/true.png?branch=master" alt="Build Status"></a></p>
 
 <p><em>Verb</em></p>
 
@@ -44,28 +42,24 @@
 <li>To make even, symmetrical, level, etc. (often followed by <em>up</em>):
 <em>True up the sides of a door.</em>
 </li>
-<li>To test your Sass/Compass code; debug, perfect, etc. (often using <em>True</em>):
+<li>To test your Sass code; debug, perfect, etc. (often using <em>True</em>):
 <em>True your sweet plugin before you deploy.</em>
 </li>
 </ol><p>At this point
-True can only test values,
-not property/value output.
-I'm working on output tests as well.
-For now,
-use True for logical unit tests,
-and use version-control for integration testing
-by comparing changes in output files.</p>
+True can only test values (e.g. function returns),
+not property/value output (e.g. mixin output).</p>
 
 <h2>
 <a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
 
 <p>in command line:</p>
 
-<p><code>gem install true</code></p>
+<div class="highlight highlight-bash"><pre><span class="c"># ruby gem</span>
+gem install <span class="nb">true</span>
 
-<p>in config.rb:</p>
-
-<p><code>require 'true'</code></p>
+<span class="c"># bower package</span>
+bower install <span class="nb">true</span>
+</pre></div>
 
 <h2>
 <a name="command-line" class="anchor" href="#command-line"><span class="octicon octicon-link"></span></a>Command Line</h2>
@@ -123,7 +117,8 @@ by comparing changes in output files.</p>
 <span class="p">}</span>
 </pre></div>
 
-<p><strong>True</strong> will report to both the terminal and an output css file by default.</p>
+<p><strong>True</strong> will report to both the terminal
+and an output css file by default.</p>
 
 <p>Here's a sample of the CSS output:</p>
 
@@ -136,12 +131,25 @@ by comparing changes in output files.</p>
 <span class="c">/*  - 2 Passed */</span>
 <span class="c">/*  - 0 Failed */</span>
 </pre></div>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/ericam/true/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/ericam/true/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/ericam/true"></a> is maintained by <a href="https://github.com/ericam">ericam</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
+
+  
   </body>
 </html>
