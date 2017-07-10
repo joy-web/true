@@ -1,12 +1,12 @@
 {
-  "name": "sass-true",
+  "name": "sass-true-vendor",
   "version": "3.0.0-beta.1",
   "description": "Unit testing for Sass.",
-  "homepage": "http://oddbird.net/true",
+  "homepage": "https://github.com/joy-web/true",
   "main": "lib/main.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com/oddbird/true.git"
+    "url": "https://github.com/joy-web/true.git"
   },
   "keywords": [
     "unit-test",
@@ -19,7 +19,7 @@
   "dependencies": {
     "css": "^2.2.1",
     "css-selector-parser": "^1.1.0",
-    "node-sass": "^4.0.0",
+    "node-sass-vendor": "4.5.3",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
@@ -45,8 +45,8 @@
     "test": "rm -rf coverage && ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec",
     "debug": "./node_modules/.bin/mocha -R spec debug",
     "sassdoc": "sassdoc sass/ --dest .sassdoc",
-    "sassdocify": "sassdocify sass && cd .pages && git remote set-url origin git@github.com:oddbird/true.git",
-    "compile": "./node_modules/.bin/node-sass test/scss/test.scss test/css/test.css --include-path ./sass/",
+    "sassdocify": "sassdocify sass && cd .pages && git remote set-url origin git@github.com:joy-web/true.git",
+    "compile": "./node_modules/.bin/node-sass-vendor test/scss/test.scss test/css/test.css --include-path ./sass/",
     "commit": "npm test; npm run compile; gulp sasslint; npm run sassdoc",
     "release": "npm test; npm run compile; gulp sasslint; npm run sassdocify",
     "coverage-html": "./node_modules/.bin/istanbul report html"
@@ -60,6 +60,6 @@
   ],
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/oddbird/true/issues"
+    "url": "https://github.com/joy-web/true/issues"
   }
 }
