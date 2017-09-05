@@ -1,6 +1,6 @@
 {
   "name": "sass-true-vendor",
-  "version": "3.0.0-beta.1",
+  "version": "3.0.0",
   "description": "Unit testing for Sass.",
   "homepage": "https://github.com/joy-web/true",
   "main": "lib/main.js",
@@ -19,7 +19,7 @@
   "dependencies": {
     "css": "^2.2.1",
     "css-selector-parser": "^1.1.0",
-    "node-sass-vendor": "4.5.3",
+    "node-sass-vendor": "^4.5.5",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
@@ -31,8 +31,8 @@
     "istanbul": "^0.4.2",
     "mocha": "^3.1.2",
     "mocha-istanbul": "^0.3.0",
-    "sassdoc": "^2.2.2",
-    "sassdoc-theme-herman": "^1.0.0-alpha.3",
+    "sassdoc": "^2.3.0",
+    "sassdoc-theme-herman": "^1.0.0-alpha.9",
     "sassdocify": "^0.3.4"
   },
   "eyeglass": {
@@ -44,19 +44,18 @@
   "scripts": {
     "test": "rm -rf coverage && ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec",
     "debug": "./node_modules/.bin/mocha -R spec debug",
-    "sassdoc": "sassdoc sass/ --dest .sassdoc",
-    "sassdocify": "sassdocify sass && cd .pages && git remote set-url origin git@github.com:joy-web/true.git",
-    "compile": "./node_modules/.bin/node-sass-vendor test/scss/test.scss test/css/test.css --include-path ./sass/",
+    "sassdoc": "sassdoc sass/",
+    "compile": "./node_modules/.bin/node-sass test/scss/test.scss test/css/test.css --include-path ./sass/",
     "commit": "npm test; npm run compile; gulp sasslint; npm run sassdoc",
-    "release": "npm test; npm run compile; gulp sasslint; npm run sassdocify",
     "coverage-html": "./node_modules/.bin/istanbul report html"
   },
-  "author": "Miriam Eric Suzanne <miriam@oddbird.net>",
+  "author": "Miriam Suzanne <miriam@oddbird.net>",
   "contributors": [
     "Scott Davis <me@sdavis.info>",
     "Chris Eppstein <chris@eppsteins.net>",
     "Carl Meyer <carl@oddbird.net>",
-    "David Glick <david@oddbird.net>"
+    "David Glick <david@oddbird.net>",
+    "Jonny Gerig Meyer <jonny@oddbird.net>"
   ],
   "license": "BSD-3-Clause",
   "bugs": {
