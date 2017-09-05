@@ -9,3 +9,4 @@ test/.sass-cache/
 node_modules/
 coverage/
 .pages/
+.idea
